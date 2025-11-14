@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ArticleDetail from './pages/ArticleDetail';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
   return (
@@ -17,9 +18,9 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/article/:slug" element={<ArticleDetail />} />
-            {/* Placeholder routes for future category pages */}
-            <Route path="/category/:categoryId" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-bold text-gray-700">Página de Categoría - Próximamente</h1></div>} />
-            <Route path="/category/:categoryId/:subcategory" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-bold text-gray-700">Subcategoría - Próximamente</h1></div>} />
+            {/* Category pages */}
+            <Route path="/category/:categoryId" element={<CategoryPage />} />
+            <Route path="/category/:categoryId/:subcategory" element={<CategoryPage />} />
             <Route path="*" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-bold text-gray-700">Página no encontrada</h1></div>} />
           </Routes>
         </main>
