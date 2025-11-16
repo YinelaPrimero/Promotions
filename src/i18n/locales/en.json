@@ -1,0 +1,105 @@
+{
+  "header": {
+    "brand": "Digital Creation Tools",
+    "tagline": "Find blog information and tools",
+    "viewAll": "View All"
+  },
+  "navigation": {
+    "home": "HOME",
+    "design": "DESIGN",
+    "marketing": "MARKETING",
+    "hosting": "HOSTING",
+    "productivity": "PRODUCTIVITY",
+    "finance": "FINANCE",
+    "ecommerce": "E-COMMERCE",
+    "security": "SECURITY",
+    "multimedia": "MULTIMEDIA"
+  },
+  "footer": {
+    "description": "Your trusted source for promotions, discounts and deals on digital products and creation tools.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "categories": "Categories",
+    "design": "Design & Creativity",
+    "marketing": "Marketing & SEO",
+    "hosting": "Hosting & Web",
+    "productivity": "Productivity & AI",
+    "contact_title": "Contact",
+    "email": "contact@digitalscreationtools.com",
+    "location": "Madrid, Spain",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "hero": {
+    "slide1": {
+      "title": "Discover the Best Creative Tools",
+      "description": "Explore Adobe Creative Cloud, Photoshop, Illustrator and more professional tools to take your projects to the next level",
+      "button": "View Creative Tools"
+    },
+    "slide2": {
+      "title": "Boost Your Business with the Best Tools",
+      "description": "Find hosting, marketing, e-commerce and productivity solutions to grow your business",
+      "button": "Explore Solutions"
+    },
+    "slide3": {
+      "title": "Finance and Accounting Software",
+      "description": "Automate your accounting, manage payments and optimize your business finances with the best tools",
+      "button": "View Financial Tools"
+    },
+    "slide4": {
+      "title": "Security and Productivity",
+      "description": "Protect your information and increase your productivity with security, management and collaboration tools",
+      "button": "Discover More"
+    }
+  },
+  "articles": {
+    "title": "Our Articles",
+    "subtitle": "Discover useful content, guides and resources to improve your day to day",
+    "loading": "Loading articles...",
+    "loadingArticle": "Loading article...",
+    "readMore": "Read more",
+    "minRead": "min read",
+    "notFound": "Article Not Found",
+    "notFoundMessage": "The article you are looking for does not exist.",
+    "backToHome": "Back to Home",
+    "backToArticles": "Back to All Articles",
+    "readyToKnowMore": "Ready to know more?",
+    "ctaDescription": "Get detailed information, exclusive offers and expert guidance to help you make the best decision for your business.",
+    "clickForMore": "Click here for more information",
+    "home": "Home"
+  },
+  "home": {
+    "heroTitle": "Find the Best Digital Tools",
+    "heroSubtitle": "Discover exclusive promotions on software, hosting and productivity tools",
+    "featuredTitle": "Featured Articles",
+    "categoriesTitle": "Explore by Categories",
+    "recentTitle": "Recent Posts"
+  },
+  "recentPosts": {
+    "title": "Recent Posts",
+    "subtitle": "Stay updated with the latest insights, tips and trends in business and technology",
+    "loading": "Loading posts..."
+  },
+  "category": {
+    "allTools": "All Tools and Software",
+    "category": "Category",
+    "exploreTools": "Explore the best tools and software to empower your business",
+    "loading": "Loading articles...",
+    "noArticles": "No articles available",
+    "noArticlesMessage": "This category is under construction. We will add content soon.",
+    "backToHome": "Back to home",
+    "author": "Author"
+  },
+  "common": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "loading": "Loading...",
+    "error": "Error",
+    "search": "Search"
+  }
+}

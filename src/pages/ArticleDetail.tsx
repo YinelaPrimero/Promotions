@@ -1,5 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { translateText } from '../services/translationService';
 
 interface Article {
   id: number;
@@ -16,9 +18,12 @@ interface Article {
 }
 
 const ArticleDetail = () => {
+  const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<Article | undefined>(undefined);
+  const [translatedArticle, setTranslatedArticle] = useState<Article | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -29,6 +34,7 @@ const ArticleDetail = () => {
           (a: Article) => a.slug === slug
         );
         setArticle(foundArticle);
+        setTranslatedArticle(foundArticle);
       } catch (error) {
         console.error('Error loading article:', error);
       } finally {
@@ -39,25 +45,68 @@ const ArticleDetail = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
+  // Auto-translate when language changes
+  useEffect(() => {
+    if (!article) return;
+
+    const currentLang = i18n.language.startsWith('en') ? 'en' : 'es';
+
+    // If Spanish, use original
+    if (currentLang === 'es') {
+      setTranslatedArticle(article);
+      return;
+    }
+
+    // Translate to English
+    const translateArticle = async () => {
+      setIsTranslating(true);
+      try {
+        const [title, excerpt, description, category, readTime] = await Promise.all([
+          translateText(article.title, 'en', 'es'),
+          translateText(article.excerpt, 'en', 'es'),
+          translateText(article.description, 'en', 'es'),
+          translateText(article.category, 'en', 'es'),
+          translateText(article.readTime, 'en', 'es')
+        ]);
+
+        setTranslatedArticle({
+          ...article,
+          title,
+          excerpt,
+          description,
+          category,
+          readTime
+        });
+      } catch (error) {
+        console.error('Translation error:', error);
+        setTranslatedArticle(article);
+      } finally {
+        setIsTranslating(false);
+      }
+    };
+
+    translateArticle();
+  }, [i18n.language, article]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-600">Cargando artículo...</p>
+        <p className="text-gray-600">{t('articles.loadingArticle')}</p>
       </div>
     );
   }
 
-  if (!article) {
+  if (!translatedArticle) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Artículo No Encontrado</h1>
-          <p className="text-gray-600 mb-8">El artículo que buscas no existe.</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('articles.notFound')}</h1>
+          <p className="text-gray-600 mb-8">{t('articles.notFoundMessage')}</p>
           <Link
             to="/"
             className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
           >
-            Volver al Inicio
+            {t('articles.backToHome')}
           </Link>
         </div>
       </div>
@@ -69,8 +118,8 @@ const ArticleDetail = () => {
       {/* Hero Section with Image */}
       <div className="relative h-96 md:h-[500px] overflow-hidden">
         <img
-          src={article.image}
-          alt={article.title}
+          src={translatedArticle.image}
+          alt={translatedArticle.title}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
@@ -80,10 +129,10 @@ const ArticleDetail = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="flex items-center space-x-2 text-sm text-white">
               <Link to="/" className="hover:text-secondary-400 transition-colors">
-                Inicio
+                {t('articles.home')}
               </Link>
               <span>/</span>
-              <span className="text-secondary-400">{article.category}</span>
+              <span className="text-secondary-400">{translatedArticle.category}</span>
             </nav>
           </div>
         </div>
@@ -92,31 +141,29 @@ const ArticleDetail = () => {
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <span className="inline-block bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              {article.category}
+              {translatedArticle.category}
             </span>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              {article.title}
+              {translatedArticle.title}
             </h1>
             <div className="flex items-center space-x-6 text-white text-sm">
-              {/* Author - Commented out for now */}
-              {/* <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-bold">
-                  {article.author.split(' ').map(n => n[0]).join('')}
-                </div>
-                <span className="font-semibold">{article.author}</span>
-              </div> */}
               <span className="flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {article.date}
+                {translatedArticle.date}
               </span>
               <span className="flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                {article.readTime}
+                {translatedArticle.readTime}
               </span>
+              {isTranslating && (
+                <span className="text-secondary-400 animate-pulse">
+                  {i18n.language.startsWith('en') ? 'Translating...' : 'Traduciendo...'}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -127,14 +174,14 @@ const ArticleDetail = () => {
         {/* Excerpt */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <p className="text-xl text-gray-700 leading-relaxed italic border-l-4 border-primary-600 pl-6">
-            {article.excerpt}
+            {translatedArticle.excerpt}
           </p>
         </div>
 
         {/* Description */}
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
           <div className="prose prose-lg max-w-none">
-            {article.description.split('\n\n').map((paragraph, index) => (
+            {translatedArticle.description.split('\n\n').map((paragraph, index) => (
               <p key={index} className="text-gray-700 leading-relaxed mb-6 last:mb-0">
                 {paragraph}
               </p>
@@ -149,20 +196,20 @@ const ArticleDetail = () => {
               <svg className="w-5 h-5 mr-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              ¿Listo para saber más?
+              {t('articles.readyToKnowMore')}
             </h3>
           </div>
           <div className="p-6 text-center">
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Obtén información detallada, ofertas exclusivas y orientación experta para ayudarte a tomar la mejor decisión para tu negocio.
+              {t('articles.ctaDescription')}
             </p>
             <a
-              href={article.affiliateLink}
+              href={translatedArticle.affiliateLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md"
             >
-              Haz clic aquí para obtener más información
+              {t('articles.clickForMore')}
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -179,7 +226,7 @@ const ArticleDetail = () => {
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            Volver a Todos los Artículos
+            {t('articles.backToArticles')}
           </Link>
         </div>
       </div>

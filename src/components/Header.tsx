@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface Category {
   id: string;
-  name: string;
+  nameKey: string;
   subcategories: string[];
 }
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -18,47 +21,47 @@ const Header = () => {
   const categories: Category[] = [
     {
       id: 'home',
-      name: 'INICIO',
+      nameKey: 'navigation.home',
       subcategories: []
     },
     {
       id: 'diseno-y-creatividad',
-      name: 'DISEÑO',
+      nameKey: 'navigation.design',
       subcategories: []
     },
     {
       id: 'marketing-y-seo',
-      name: 'MARKETING',
+      nameKey: 'navigation.marketing',
       subcategories: []
     },
     {
       id: 'hosting-y-web',
-      name: 'HOSTING',
+      nameKey: 'navigation.hosting',
       subcategories: []
     },
     {
       id: 'productividad-y-ia',
-      name: 'PRODUCTIVIDAD',
+      nameKey: 'navigation.productivity',
       subcategories: []
     },
     {
       id: 'finanzas-y-contabilidad',
-      name: 'FINANZAS',
+      nameKey: 'navigation.finance',
       subcategories: []
     },
     {
       id: 'e-commerce',
-      name: 'E-COMMERCE',
+      nameKey: 'navigation.ecommerce',
       subcategories: []
     },
     {
       id: 'seguridad-y-privacidad',
-      name: 'SEGURIDAD',
+      nameKey: 'navigation.security',
       subcategories: []
     },
     {
       id: 'multimedia',
-      name: 'MULTIMEDIA',
+      nameKey: 'navigation.multimedia',
       subcategories: []
     }
     // Categorías comentadas para implementación futura
@@ -106,21 +109,15 @@ const Header = () => {
                 <span className="text-white font-bold text-xl">D</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">Digital Creation Tools</h1>
-                <p className="text-xs text-primary-100">Encuentra información de blogs y herramientas</p>
+                <h1 className="text-xl font-bold text-white">{t('header.brand')}</h1>
+                <p className="text-xs text-primary-100">{t('header.tagline')}</p>
               </div>
             </Link>
 
-            {/* Contact info 
-            <div className="hidden md:flex items-center space-x-4 text-sm">
-              <span className="flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Encuentra información de blogs y herramientas
-              </span>
+            {/* Language Switcher */}
+            <div className="hidden md:flex items-center">
+              <LanguageSwitcher />
             </div>
-            */}
           </div>
         </div>
       </div>
@@ -159,7 +156,7 @@ const Header = () => {
                     to={category.id === 'home' ? '/' : `/category/${category.id}`}
                     className="px-3 py-2 text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors flex items-center"
                   >
-                    {category.name}
+                    {t(category.nameKey)}
                     {category.subcategories.length > 0 && (
                       <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -173,7 +170,7 @@ const Header = () => {
                       openDropdown === category.id ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
                     }`}>
                       <div className="p-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-                        <h3 className="font-bold text-sm">{category.name}</h3>
+                        <h3 className="font-bold text-sm">{t(category.nameKey)}</h3>
                       </div>
                       <div className="p-2 max-h-96 overflow-y-auto">
                         {category.subcategories.map((subcategory, index) => (
@@ -191,7 +188,7 @@ const Header = () => {
                           to={category.id === 'home' ? '/' : `/category/${category.id}`}
                           className="block px-4 py-2 text-sm font-semibold text-primary-600 hover:bg-primary-50 rounded-md text-center"
                         >
-                          Ver Todas →
+                          {t('header.viewAll')} →
                         </Link>
                       </div>
                     </div>
@@ -210,6 +207,10 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg z-50 max-h-[80vh] overflow-y-auto">
           <div className="px-4 py-2 space-y-1">
+            {/* Mobile Language Switcher */}
+            <div className="flex justify-center py-3 border-b border-gray-100">
+              <LanguageSwitcher />
+            </div>
             {categories.map((category) => (
               <div key={category.id} className="border-b border-gray-100 last:border-0">
                 {category.subcategories.length === 0 ? (
@@ -218,7 +219,7 @@ const Header = () => {
                     className="w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md font-semibold"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {category.name}
+                    {t(category.nameKey)}
                   </Link>
                 ) : (
                   <>
@@ -226,7 +227,7 @@ const Header = () => {
                       onClick={() => setOpenDropdown(openDropdown === category.id ? null : category.id)}
                       className="w-full flex items-center justify-between px-3 py-3 text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md font-semibold"
                     >
-                      {category.name}
+                      {t(category.nameKey)}
                       <svg className={`w-4 h-4 transition-transform ${openDropdown === category.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
@@ -249,7 +250,7 @@ const Header = () => {
                           className="block px-3 py-2 text-sm font-semibold text-primary-600 hover:bg-primary-50 rounded-md"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          Ver Todas →
+                          {t('header.viewAll')} →
                         </Link>
                       </div>
                     )}

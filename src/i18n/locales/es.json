@@ -1,0 +1,105 @@
+{
+  "header": {
+    "brand": "Digital Creation Tools",
+    "tagline": "Encuentra información de blogs y herramientas",
+    "viewAll": "Ver Todas"
+  },
+  "navigation": {
+    "home": "INICIO",
+    "design": "DISEÑO",
+    "marketing": "MARKETING",
+    "hosting": "HOSTING",
+    "productivity": "PRODUCTIVIDAD",
+    "finance": "FINANZAS",
+    "ecommerce": "E-COMMERCE",
+    "security": "SEGURIDAD",
+    "multimedia": "MULTIMEDIA"
+  },
+  "footer": {
+    "description": "Tu fuente confiable de promociones, descuentos y ofertas en productos digitales y herramientas de creación.",
+    "quickLinks": "Enlaces Rápidos",
+    "home": "Inicio",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "categories": "Categorías",
+    "design": "Diseño y Creatividad",
+    "marketing": "Marketing y SEO",
+    "hosting": "Hosting y Web",
+    "productivity": "Productividad e IA",
+    "contact_title": "Contacto",
+    "email": "contact@digitalscreationtools.com",
+    "location": "Madrid, España",
+    "followUs": "Síguenos",
+    "rights": "Todos los derechos reservados.",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio"
+  },
+  "hero": {
+    "slide1": {
+      "title": "Descubre las Mejores Herramientas Creativas",
+      "description": "Explora Adobe Creative Cloud, Photoshop, Illustrator y más herramientas profesionales para llevar tus proyectos al siguiente nivel",
+      "button": "Ver Herramientas Creativas"
+    },
+    "slide2": {
+      "title": "Impulsa tu Negocio con las Mejores Herramientas",
+      "description": "Encuentra soluciones de hosting, marketing, e-commerce y productividad para hacer crecer tu empresa",
+      "button": "Explorar Soluciones"
+    },
+    "slide3": {
+      "title": "Software de Finanzas y Contabilidad",
+      "description": "Automatiza tu contabilidad, gestiona pagos y optimiza las finanzas de tu negocio con las mejores herramientas",
+      "button": "Ver Herramientas Financieras"
+    },
+    "slide4": {
+      "title": "Seguridad y Productividad",
+      "description": "Protege tu información y aumenta tu productividad con herramientas de seguridad, gestión y colaboración",
+      "button": "Descubre Más"
+    }
+  },
+  "articles": {
+    "title": "Nuestros Artículos",
+    "subtitle": "Descubre contenido útil, guías y recursos para mejorar tu día a día",
+    "loading": "Cargando artículos...",
+    "loadingArticle": "Cargando artículo...",
+    "readMore": "Leer más",
+    "minRead": "min de lectura",
+    "notFound": "Artículo No Encontrado",
+    "notFoundMessage": "El artículo que buscas no existe.",
+    "backToHome": "Volver al Inicio",
+    "backToArticles": "Volver a Todos los Artículos",
+    "readyToKnowMore": "¿Listo para saber más?",
+    "ctaDescription": "Obtén información detallada, ofertas exclusivas y orientación experta para ayudarte a tomar la mejor decisión para tu negocio.",
+    "clickForMore": "Haz clic aquí para obtener más información",
+    "home": "Inicio"
+  },
+  "home": {
+    "heroTitle": "Encuentra las Mejores Herramientas Digitales",
+    "heroSubtitle": "Descubre promociones exclusivas en software, hosting y herramientas de productividad",
+    "featuredTitle": "Artículos Destacados",
+    "categoriesTitle": "Explora por Categorías",
+    "recentTitle": "Publicaciones Recientes"
+  },
+  "recentPosts": {
+    "title": "Publicaciones Recientes",
+    "subtitle": "Mantente actualizado con los últimos insights, consejos y tendencias en negocios y tecnología",
+    "loading": "Cargando publicaciones..."
+  },
+  "category": {
+    "allTools": "Todas las Herramientas y Software",
+    "category": "Categoría",
+    "exploreTools": "Explora las mejores herramientas y software para potenciar tu negocio",
+    "loading": "Cargando artículos...",
+    "noArticles": "No hay artículos disponibles",
+    "noArticlesMessage": "Esta categoría está en construcción. Pronto agregaremos contenido.",
+    "backToHome": "Volver al inicio",
+    "author": "Autor"
+  },
+  "common": {
+    "readMore": "Leer más",
+    "viewAll": "Ver todo",
+    "loading": "Cargando...",
+    "error": "Error",
+    "search": "Buscar"
+  }
+}

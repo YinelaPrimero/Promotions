@@ -1,49 +1,51 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Slide {
   id: number;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   image: string;
-  buttonText: string;
+  buttonTextKey: string;
   buttonLink: string;
 }
 
 const HeroSlider = () => {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides: Slide[] = [
     {
       id: 1,
-      title: 'Descubre las Mejores Herramientas Creativas',
-      description: 'Explora Adobe Creative Cloud, Photoshop, Illustrator y más herramientas profesionales para llevar tus proyectos al siguiente nivel',
+      titleKey: 'hero.slide1.title',
+      descriptionKey: 'hero.slide1.description',
       image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&h=600&fit=crop',
-      buttonText: 'Ver Herramientas Creativas',
+      buttonTextKey: 'hero.slide1.button',
       buttonLink: '/category/diseno-y-creatividad'
     },
     {
       id: 2,
-      title: 'Impulsa tu Negocio con las Mejores Herramientas',
-      description: 'Encuentra soluciones de hosting, marketing, e-commerce y productividad para hacer crecer tu empresa',
+      titleKey: 'hero.slide2.title',
+      descriptionKey: 'hero.slide2.description',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop',
-      buttonText: 'Explorar Soluciones',
+      buttonTextKey: 'hero.slide2.button',
       buttonLink: '/category/productividad-y-ia'
     },
     {
       id: 3,
-      title: 'Software de Finanzas y Contabilidad',
-      description: 'Automatiza tu contabilidad, gestiona pagos y optimiza las finanzas de tu negocio con las mejores herramientas',
+      titleKey: 'hero.slide3.title',
+      descriptionKey: 'hero.slide3.description',
       image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=600&fit=crop',
-      buttonText: 'Ver Herramientas Financieras',
+      buttonTextKey: 'hero.slide3.button',
       buttonLink: '/category/finanzas-y-contabilidad'
     },
     {
       id: 4,
-      title: 'Seguridad y Productividad',
-      description: 'Protege tu información y aumenta tu productividad con herramientas de seguridad, gestión y colaboración',
+      titleKey: 'hero.slide4.title',
+      descriptionKey: 'hero.slide4.description',
       image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1200&h=600&fit=crop',
-      buttonText: 'Descubre Más',
+      buttonTextKey: 'hero.slide4.button',
       buttonLink: '/category/seguridad-y-privacidad'
     }
   ];
@@ -91,16 +93,16 @@ const HeroSlider = () => {
           <div className="relative h-full flex items-center justify-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
-                {slide.title}
+                {t(slide.titleKey)}
               </h2>
               <p className="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto animate-fadeIn">
-                {slide.description}
+                {t(slide.descriptionKey)}
               </p>
               <Link
                 to={slide.buttonLink}
                 className="inline-block bg-secondary-600 hover:bg-secondary-700 text-white font-bold px-8 py-4 rounded-lg transition-all duration-200 transform hover:scale-105 animate-fadeIn"
               >
-                {slide.buttonText}
+                {t(slide.buttonTextKey)}
               </Link>
             </div>
           </div>

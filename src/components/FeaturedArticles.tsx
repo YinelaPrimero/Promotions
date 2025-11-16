@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAutoTranslate } from '../hooks/useAutoTranslate';
 
 interface Article {
   id: number;
@@ -14,12 +16,22 @@ interface Article {
 }
 
 const FeaturedArticles = () => {
+  const { t, i18n } = useTranslation();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Auto-translate articles when language changes
+  const { translatedData: translatedArticles, isTranslating } = useAutoTranslate({
+    data: articles,
+    fieldsToTranslate: ['title', 'excerpt', 'category', 'readTime'],
+    sourceLang: 'es',
+    enabled: true
+  });
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
+        // Always load the Spanish version as the source
         const response = await fetch('/blog/data/articles.json');
         const data = await response.json();
         setArticles(data.featuredArticles);
@@ -36,7 +48,7 @@ const FeaturedArticles = () => {
     return (
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-600">Cargando artículos...</p>
+          <p className="text-gray-600">{t('articles.loading')}</p>
         </div>
       </section>
     );
@@ -48,16 +60,21 @@ const FeaturedArticles = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Nuestros Artículos
+            {t('articles.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubre contenido útil, guías y recursos para mejorar tu día a día
+            {t('articles.subtitle')}
           </p>
+          {isTranslating && (
+            <p className="text-sm text-primary-600 mt-2 animate-pulse">
+              {i18n.language.startsWith('en') ? 'Translating content...' : 'Traduciendo contenido...'}
+            </p>
+          )}
         </div>
 
         {/* Articles List */}
         <div className="space-y-8">
-          {articles.map((article, index) => (
+          {translatedArticles.map((article, index) => (
             <Link
               key={article.id}
               to={`/article/${article.slug}`}
@@ -112,19 +129,8 @@ const FeaturedArticles = () => {
                   </p>
 
                   <div className="flex items-center justify-between mt-auto">
-                    {/* Author - Commented out for now */}
-                    {/* <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-bold">
-                        {article.author.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900">{article.author}</p>
-                        <p className="text-xs text-gray-500">Autor</p>
-                      </div>
-                    </div> */}
-
                     <div className="flex items-center text-primary-600 font-semibold group-hover:gap-3 transition-all">
-                      Leer más
+                      {t('articles.readMore')}
                       <svg className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
